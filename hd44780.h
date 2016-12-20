@@ -47,13 +47,20 @@ void lcd_return_home(int *fd);
   Mostly complete character mapping for HD44780
   (minus yen, accent, and left/right arrows)
 **********************************************/
-void lcd_writeChar(int *fd, char c);
+void lcd_write_char(int *fd, char c);
 
 /**********************************************
   Moves the cursor to specified position
   (0-based,L-R)
 **********************************************/
 void lcd_goto(int *fd, char position);
+
+/**********************************************
+  Writes specified string to display starting at
+  defined position. Automatically shifts to second
+  line when position hits 16
+**********************************************/
+void lcd_write_string(int *fd, char start_position, char *string, char len);
 
 #ifdef __cplusplus
 }

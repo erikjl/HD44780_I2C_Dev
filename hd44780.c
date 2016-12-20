@@ -4,8 +4,6 @@ http://www.protostack.com/blog/2010/03/character-lcd-displays-part-1/
 https://dawes.wordpress.com/2010/01/05/hd44780-instruction-set/
 http://www.dinceraydin.com/lcd/commands.htm
 
-
-
 ************************************************/
 
 #include "hd44780.h"
@@ -146,7 +144,7 @@ void lcd_return_home(int *fd)
   Mostly complete character mapping for HD44780
   (minus yen, accent, and left/right arrows)
 **********************************************/
-void lcd_writeChar(int *fd, char c)
+void lcd_write_char(int *fd, char c)
 {
     /* TODO: reorganize into sequential ASCII values for compiler optimization?
     See: http://embeddedgurus.com/stack-overflow/2010/04/efficient-c-tip-12-be-wary-of-switch-statements/ */
@@ -562,4 +560,15 @@ void lcd_goto(int *fd, char position)
     usleep(60);
 }
 
+void lcd_write_string(int *fd, char start_position, char *string, char len)
+{
+    lcd_goto(fd, start_position);
 
+    for(int i=0; i < len; i++)
+    {
+        if(start_position + i == 16)
+            lcd_goto(fd, 64); //next line (16x2!!)
+
+        lcd_write_char(fd, string[i]);
+    }
+}
