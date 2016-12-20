@@ -16,23 +16,22 @@ int main(int argc, char** argv)
     lcd_clear_display(&fd);
     lcd_return_home(&fd);
 
-    /*************
-    CURSOR DOESNT GO TO SECOND LINE!
-    JUST ROLLS BACK TO 1ST LINE OVER AND OVER
-    *************/
-    int i = 0;
-    for(;;)
+    //test 1st line
+    for(int i = 0; i < 16; i++)
     {
-        lcd_goto(&fd,i++);
+        lcd_goto(&fd,i);
+        printf("   %d\r\n", i);
+        usleep(500000);
+    }
+    //test second line
+    for(int i = 64; i < 80; i++)
+    {
+        lcd_goto(&fd,i);
         printf("   %d\r\n", i);
         usleep(500000);
     }
 
-    //second line supposedly starts at 65
-    lcd_goto(&fd,65);
-    usleep(2000000);
-    lcd_goto(&fd,79);
-    return 0;
+    lcd_return_home(&fd);
 
     /* column 2 */
     printf("Comumn 2\r\n");
@@ -52,6 +51,8 @@ int main(int argc, char** argv)
     lcd_writeChar(&fd, '-');
     lcd_writeChar(&fd, '.');
     lcd_writeChar(&fd, '/');
+
+    lcd_goto(&fd,64);
 
     /* column 3 */
     printf("Comumn 3\r\n");
@@ -74,7 +75,6 @@ int main(int argc, char** argv)
     usleep(3000000);
     lcd_clear_display(&fd);
     lcd_return_home(&fd);
-return 0;
 
     /* column 4 */
     printf("Comumn 4\r\n");
@@ -94,6 +94,9 @@ return 0;
     lcd_writeChar(&fd, '=');
     lcd_writeChar(&fd, '>');
     lcd_writeChar(&fd, '?');
+
+    lcd_goto(&fd,64);
+
     /* column 5 */
     printf("Comumn 5\r\n");
     lcd_writeChar(&fd, 'P');
@@ -132,6 +135,9 @@ return 0;
     lcd_writeChar(&fd, 'm');
     lcd_writeChar(&fd, 'n');
     lcd_writeChar(&fd, 'o');
+
+    lcd_goto(&fd,64);
+
     /* column 7 */
     printf("Comumn 7\r\n");
     lcd_writeChar(&fd, 'p');

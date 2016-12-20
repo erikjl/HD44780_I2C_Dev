@@ -546,8 +546,11 @@ void lcd_writeChar(int *fd, char c)
 
 }
 /**********************************************
-  Moves the cursor to specified position
-  (0-based,L-R)
+  Moves the cursor to specified position (0-based,L-R)
+
+  For a 2x16 display:
+        0-15 first line
+        64-79 second line
 **********************************************/
 void lcd_goto(int *fd, char position)
 {
