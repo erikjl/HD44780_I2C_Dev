@@ -551,8 +551,11 @@ void lcd_writeChar(int *fd, char c)
 **********************************************/
 void lcd_goto(int *fd, char position)
 {
-    lcd_write_nibble(fd, 0, 0x80 | _BL);
-    lcd_write_nibble(fd, 0, position << 4 | _BL);
+    position += 0x80;
+    char upper = 0b11110000 & position;
+    char lower = (0b00001111 & position) << 4;
+    lcd_write_nibble(fd, 0, upper | _BL);
+    lcd_write_nibble(fd, 0, lower | _BL);
     usleep(60);
 }
 
